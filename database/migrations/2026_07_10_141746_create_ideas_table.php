@@ -30,8 +30,11 @@ return new class extends Migration
             // Può essere collegato a un Enum come Status
             $table->string('status');
 
+            $table->string('priority');
+            
             // Categoria come stringa (es. "Business", "Tech")
             $table->string('category');
+
 
             // Relazione con la tabella categories
             // foreignId crea una colonna UNSIGNED BIGINT

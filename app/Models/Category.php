@@ -31,4 +31,9 @@ class Category extends Model
          */
         return $this->hasMany(Idea::class);
     }
+
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

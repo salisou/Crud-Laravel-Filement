@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Idea extends Model
 {
-    protected $fillable = ['title', 'description', 'status', 'category', 'category_id'];
+    protected $fillable = ['title', 'description', 'status', 'category', 'priority', 'category_id'];
 
     protected $casts = [
         'status' => Status::class,
