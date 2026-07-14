@@ -8,4 +8,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTag extends CreateRecord
 {
     protected static string $resource = TagResource::class;
+    protected static ?string $title = 'Crea nuovo Tag';
 }

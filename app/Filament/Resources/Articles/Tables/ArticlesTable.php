@@ -17,20 +17,40 @@ class ArticlesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image')
+                    ->label('Immagine')
+                    ->square(),
+
                 TextColumn::make('name')
+                    ->label('Nome')
+                    ->sortable()
                     ->searchable(),
+
+                TextColumn::make('category.name')
+                    ->label('Categoria')
+                    ->badge()
+                    ->searchable(),
+
+                TextColumn::make('tags.name')
+                    ->label('Tags')
+                    ->badge()
+                    ->separator(', '),
+
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('image'),
+
+
                 IconColumn::make('isPublished')
+                    ->label('Pubblicato')
                     ->boolean(),
-                TextColumn::make('category.name')
-                    ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Creato il')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
+                    ->label('Aggiornato il')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -8,6 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class ArticleForm
 {
@@ -16,20 +17,46 @@ class ArticleForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nome')
                     ->required()
-                    ->default('Senza nome'),
+                    ->reactive()
+                    ->default('Senza nome')
+                    ->afterStateUpdated(
+                        fn($state, callable $set) =>
+                        $set('slug', Str::slug($state))
+                    ),
+
                 TextInput::make('slug')
-                    ->required(),
+                    ->required()
+                    ->unique(ignoreRecord: true),
+
                 Textarea::make('description')
+                    ->label('Descrizione')
                     ->required()
                     ->columnSpanFull(),
+
                 FileUpload::make('image')
-                    ->image(),
+                    ->label('Immagine')
+                    ->image()
+                    ->directory('articles')
+                    ->maxSize(2048),
+
                 Toggle::make('isPublished')
+                    ->label('Pubblicato')
+                    ->default(false)
                     ->required(),
+
                 Select::make('category_id')
+                    ->label('Categoria')
                     ->relationship('category', 'name')
-                    ->required(),
+                    ->required()
+                    ->preload(),
+
+                Select::make('tags')
+                    ->label('Tags')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->preload(),
             ]);
     }
 }
